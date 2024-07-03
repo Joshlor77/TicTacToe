@@ -11,7 +11,7 @@ private:
 	Matrix3* board;
 public:
 	TicTacToeDisplay();
-	TicTacToeDisplay(Matrix3& board);
+	TicTacToeDisplay(Matrix3* board);
 	void update();
 	void xWinEndScreen();
 	void oWinEndScreen();
@@ -21,8 +21,8 @@ TicTacToeDisplay::TicTacToeDisplay(){
 	board = nullptr;
 }
 
-TicTacToeDisplay::TicTacToeDisplay(Matrix3& matrix3){
-	board = &matrix3;
+TicTacToeDisplay::TicTacToeDisplay(Matrix3* matrix3){
+	board = matrix3;
 }
 
 void TicTacToeDisplay::printAsText(){

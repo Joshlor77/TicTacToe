@@ -32,27 +32,29 @@ public:
 };
 
 TicTacToe::TicTacToe(){
-	reset(3, 3, 3);
+	//board = Matrix3(3, 3, 3);
+	state = 0;
+	nDim = new char[3];
+	mDim = new char[3];
+	hDim = new char[3];
+	//display = TicTacToeDisplay(&board);
 }
 
 TicTacToe::TicTacToe(int h, int n, int m){
-	reset(h, n, m);
-}
-
-void TicTacToe::reset(int h, int n, int m){
 	board = Matrix3(h, n, m);
 	state = 0;
 	nDim = new char[n];
 	mDim = new char[m];
 	hDim = new char[h];
-	display = TicTacToeDisplay(board);
+	display = TicTacToeDisplay(&board);
+
+}
+
+void TicTacToe::reset(int h, int n, int m){
+
 }
 
 TicTacToe::~TicTacToe(){
-	deleteDimArrays();
-}
-
-void TicTacToe::deleteDimArrays(){
 	delete [] nDim;
 	delete [] mDim;
 	delete [] hDim;
@@ -112,6 +114,7 @@ void TicTacToe::updateVisual(){
 //Starts the game
 void TicTacToe::start(){
 	while(true){
+		updateVisual();
 		inputMove(input.getN(), input.getM(), input.getH());
 	}
 }
