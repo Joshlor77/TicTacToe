@@ -8,9 +8,9 @@
 class TicTacToe {
 private:
 	Matrix3 board;
-	short state; //Keeps track of the state of the game. This involves turn player and if and who won
 	TicTacToeDisplay display;
 	tttInput input;
+	short state; //Keeps track of the state of the game. This involves turn player and if and who won
 
 	//These are used for checking win condition
 	char* nDim;
@@ -45,6 +45,7 @@ void TicTacToe::reset(int h, int n, int m){
 	nDim = new char[n];
 	mDim = new char[m];
 	hDim = new char[h];
+	display = TicTacToeDisplay(board);
 }
 
 TicTacToe::~TicTacToe(){
@@ -105,13 +106,13 @@ void TicTacToe::finish(){
 
 //Called for updating visuals
 void TicTacToe::updateVisual(){
-	display.update(board);
+	display.update();
 }
 
 //Starts the game
 void TicTacToe::start(){
 	while(true){
-
+		inputMove(input.getN(), input.getM(), input.getH());
 	}
 }
 
