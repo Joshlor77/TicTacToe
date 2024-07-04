@@ -13,45 +13,43 @@ private:
 	short state; //Keeps track of the state of the game. This involves turn player and if and who won
 
 	//These are used for checking win condition
-	char* nDim;
-	char* mDim;
-	char* hDim;
-	void deleteDimArrays();
+	char* nDim,* mDim,* hDim;
 
 	void checkBoardState();
 	void finish();
 	void updateVisual();
-	void reset(int h, int n, int m); //Resets board state
+	void reset(); //Resets board state
 	void updateState(); //Updates the game state
 	void inputMove(int n, int h, int m);
 public:
-	TicTacToe();
-	TicTacToe(int n, int m, int h);
+	TicTacToe() : TicTacToe(3) {}
+	TicTacToe(int n);
 	void start();
 	~TicTacToe();
 };
 
-TicTacToe::TicTacToe(){
-	//board = Matrix3(3, 3, 3);
-	state = 0;
-	nDim = new char[3];
-	mDim = new char[3];
-	hDim = new char[3];
-	//display = TicTacToeDisplay(&board);
-}
-
-TicTacToe::TicTacToe(int h, int n, int m){
-	board = Matrix3(h, n, m);
+// Constructor
+TicTacToe::TicTacToe(int n){
+	board = Matrix3(n);
 	state = 0;
 	nDim = new char[n];
-	mDim = new char[m];
-	hDim = new char[h];
-	display = TicTacToeDisplay(&board);
-
+	mDim = new char[n];
+	hDim = new char[n];
+	display = TicTacToeDisplay();
 }
 
-void TicTacToe::reset(int h, int n, int m){
-
+/* Fills board with ' ' characters
+ * Fills the dim arrays with ' ' characters
+ */
+void TicTacToe::reset(){
+	for (int i = 0; i < board.size(); i++){
+		for (int j = 0; j < board.size(); j++)
+			for (int k = 0; k < board.size(); k++)
+				board.set(i, j, k, ' ');
+		(hDim)[i] = ' ';
+		(nDim)[i] = ' ';
+		(mDim)[i] = ' ';
+	}
 }
 
 TicTacToe::~TicTacToe(){
@@ -114,7 +112,6 @@ void TicTacToe::updateVisual(){
 //Starts the game
 void TicTacToe::start(){
 	while(true){
-		updateVisual();
 		inputMove(input.getN(), input.getM(), input.getH());
 	}
 }
